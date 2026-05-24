@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { GalleryItem } from "@/lib/gallery";
 import { DessertArt } from "./DessertArt";
@@ -85,15 +86,27 @@ export function Lightbox({ items, index, onClose, onChange }: Props) {
             transition={{ type: "spring", stiffness: 220, damping: 26 }}
           >
             <div
-              className="grid aspect-[4/3] w-full place-items-center overflow-hidden rounded-3xl p-12 text-[#f4e6cf]"
+              className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl"
               style={{
                 backgroundImage: `linear-gradient(145deg, ${item.tone[0]}, ${item.tone[1]})`,
               }}
             >
-              <DessertArt
-                type={item.art}
-                className="max-w-[260px] drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
-              />
+              {item.image ? (
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="grid h-full w-full place-items-center p-12 text-[#f4e6cf]">
+                  <DessertArt
+                    type={item.art}
+                    className="max-w-[260px] drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                  />
+                </div>
+              )}
             </div>
             <figcaption className="mt-5 text-center text-white">
               <p className="text-xs uppercase tracking-eyebrow text-gold">

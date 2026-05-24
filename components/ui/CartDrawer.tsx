@@ -69,7 +69,16 @@ export function CartDrawer() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const canSend = form.name.trim() !== "" && form.address.trim() !== "";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const now = new Date();
+  const minDateTime = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
+    now.getDate(),
+  )}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  const isPastWanted =
+    form.wantedBy !== "" && new Date(form.wantedBy).getTime() < Date.now();
+
+  const canSend =
+    form.name.trim() !== "" && form.address.trim() !== "" && !isPastWanted;
 
   const handleSend = () => {
     if (!canSend) return;
@@ -307,9 +316,16 @@ export function CartDrawer() {
                               name="wantedBy"
                               type="datetime-local"
                               value={form.wantedBy}
+                              min={minDateTime}
                               onChange={handleChange}
+                              aria-invalid={isPastWanted}
                               className={inputClass}
                             />
+                            {isPastWanted ? (
+                              <p className="mt-1.5 text-xs text-red-400">
+                                Please pick a date &amp; time in the future.
+                              </p>
+                            ) : null}
                           </div>
                           <div>
                             <label className={labelClass} htmlFor="cart-notes">
@@ -350,7 +366,9 @@ export function CartDrawer() {
                         <p className="text-center text-xs text-muted">
                           {canSend
                             ? "Opens WhatsApp with your order pre-filled."
-                            : "Add your name and address to continue."}
+                            : isPastWanted
+                              ? "Choose a future date & time to continue."
+                              : "Add your name and address to continue."}
                         </p>
                       </div>
                     </>

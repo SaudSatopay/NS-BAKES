@@ -92,13 +92,15 @@ Everything content-related lives in plain TypeScript files:
 All colors are CSS variables defined in **`app/globals.css`** (`:root` for light,
 `.dark` for dark). Tweak the `R G B` triples there and the whole site updates.
 
-### Using real photography
+### Product photography
 
-The desserts are currently elegant hand-built SVG illustrations
-(`components/ui/DessertArt.tsx`) so the site looks designed out of the box. To use
-real photos, drop images in `public/images/` and replace the `<DessertArt … />`
-tiles inside `components/ui/ProductCard.tsx` and `components/sections/Gallery.tsx`
-with Next.js `<Image>` components.
+Menu and gallery photos live in `public/images/menu/` and are wired up via the
+`image` field in `lib/products.ts` and `lib/gallery.ts` (rendered with
+`next/image`). The bundled photos are sourced from Unsplash (free to use under the
+Unsplash License) as tasteful placeholders. To use your own, just replace the
+files in `public/images/menu/` (keep the same filenames) or point the `image`
+fields at new paths. Any item without an `image` automatically falls back to the
+built-in `DessertArt` SVG illustration (`components/ui/DessertArt.tsx`).
 
 ---
 

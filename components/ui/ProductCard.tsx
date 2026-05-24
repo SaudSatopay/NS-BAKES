@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
 import { site } from "@/lib/site";
@@ -58,37 +59,56 @@ export const ProductCard = forwardRef<HTMLElement, { product: Product }>(
         className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface shadow-soft transition-shadow duration-300 hover:shadow-lift"
       >
         <div
-          className="relative aspect-[5/4] overflow-hidden p-9 text-[#f4e6cf]"
+          className="relative aspect-[5/4] overflow-hidden"
           style={{
             backgroundImage: `linear-gradient(150deg, ${product.tone[0]}, ${product.tone[1]})`,
           }}
         >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(60% 55% at 26% 18%, rgba(255,255,255,0.30), transparent 60%)",
-            }}
-          />
+          {product.image ? (
+            <>
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/45 to-transparent"
+              />
+            </>
+          ) : (
+            <div className="absolute inset-0 grid place-items-center p-9 text-[#f4e6cf]">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(60% 55% at 26% 18%, rgba(255,255,255,0.30), transparent 60%)",
+                }}
+              />
+              <div className="relative z-[1] flex h-full w-full max-w-[160px] items-center justify-center transition-transform duration-500 ease-out group-hover:-rotate-3 group-hover:scale-110">
+                <DessertArt type={product.art} />
+              </div>
+            </div>
+          )}
+
           {product.badge ? (
             <span
               className={cn(
-                "absolute left-4 top-4 z-10 inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] font-semibold backdrop-blur",
+                "absolute left-4 top-4 z-10 inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] font-semibold shadow-sm backdrop-blur",
                 product.badge === "Bestseller"
                   ? "bg-gold text-[#23160d]"
-                  : "bg-black/30 text-[#f4e6cf]",
+                  : "bg-black/45 text-[#f4e6cf]",
               )}
             >
               {product.badge}
             </span>
           ) : null}
-          <span className="absolute right-4 top-4 z-10 text-[0.68rem] uppercase tracking-eyebrow text-[#f4e6cf]/70">
+          <span className="absolute right-4 top-4 z-10 text-[0.68rem] uppercase tracking-eyebrow text-white/85 [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
             {product.category}
           </span>
-          <div className="relative z-[1] mx-auto flex h-full w-full max-w-[160px] items-center justify-center transition-transform duration-500 ease-out group-hover:-rotate-3 group-hover:scale-110">
-            <DessertArt type={product.art} />
-          </div>
         </div>
 
         <div className="flex flex-1 flex-col p-6">

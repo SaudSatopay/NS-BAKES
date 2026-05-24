@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { galleryItems, type TileSize } from "@/lib/gallery";
 import { cn } from "@/lib/utils";
@@ -58,17 +59,29 @@ export function Gallery() {
               }}
               aria-label={`View ${item.title}`}
             >
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-60"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(60% 50% at 30% 18%, rgba(255,255,255,0.26), transparent 60%)",
-                }}
-              />
-              <div className="absolute inset-0 grid place-items-center p-10 transition-transform duration-500 ease-out group-hover:scale-110">
-                <DessertArt type={item.art} className="max-w-[150px]" />
-              </div>
+              {item.image ? (
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                />
+              ) : (
+                <>
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 opacity-60"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(60% 50% at 30% 18%, rgba(255,255,255,0.26), transparent 60%)",
+                    }}
+                  />
+                  <div className="absolute inset-0 grid place-items-center p-10 transition-transform duration-500 ease-out group-hover:scale-110">
+                    <DessertArt type={item.art} className="max-w-[150px]" />
+                  </div>
+                </>
+              )}
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="text-left">
                   <p className="text-[0.66rem] uppercase tracking-eyebrow text-gold">

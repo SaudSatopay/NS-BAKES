@@ -24,6 +24,8 @@ export interface Product {
   badge?: string;
   /** Custom items skip the cart and open a WhatsApp enquiry instead. */
   custom?: boolean;
+  /** Photo in /public; falls back to the DessertArt illustration if absent. */
+  image?: string;
 }
 
 export const categories: Array<Category | "All"> = [
@@ -34,7 +36,7 @@ export const categories: Array<Category | "All"> = [
   "Bombolonis",
 ];
 
-export const products: Product[] = [
+const baseProducts: Product[] = [
   // ---------------------------------------------------------------- Cakes
   {
     id: "belgian-chocolate-cake",
@@ -278,3 +280,34 @@ export const products: Product[] = [
     tone: ["#b35d54", "#5e2723"],
   },
 ];
+
+/** Product photos live in /public/images/menu. Swap for your own anytime. */
+const productImages: Record<string, string> = {
+  "belgian-chocolate-cake": "/images/menu/choc-cake.jpg",
+  "red-velvet-cake": "/images/menu/red-velvet.jpg",
+  "black-forest-cake": "/images/menu/black-forest.jpg",
+  "butterscotch-cake": "/images/menu/butterscotch.jpg",
+  "pineapple-cake": "/images/menu/pineapple.jpg",
+  "choco-truffle-cake": "/images/menu/truffle-cake.jpg",
+  "custom-cake": "/images/menu/custom-cake.jpg",
+  "classic-fudge-brownie": "/images/menu/brownie-1.jpg",
+  "walnut-brownie": "/images/menu/brownie-2.jpg",
+  "salted-caramel-brownie": "/images/menu/brownie-3.jpg",
+  "nutella-brownie": "/images/menu/brownie-1.jpg",
+  "triple-chocolate-brownie": "/images/menu/brownie-2.jpg",
+  "biscoff-brownie": "/images/menu/brownie-3.jpg",
+  "brown-butter-choc-chip": "/images/menu/cookie-1.jpg",
+  "double-chocolate-cookie": "/images/menu/cookie-2.jpg",
+  "red-velvet-cookie": "/images/menu/cookie-3.jpg",
+  "oatmeal-raisin-cookie": "/images/menu/cookie-1.jpg",
+  "nutella-bomboloni": "/images/menu/bomboloni-1.jpg",
+  "ganache-bomboloni": "/images/menu/bomboloni-2.jpg",
+  "biscoff-bomboloni": "/images/menu/bomboloni-3.jpg",
+  "berry-bomboloni": "/images/menu/bomboloni-2.jpg",
+  "jam-bomboloni": "/images/menu/bomboloni-1.jpg",
+};
+
+export const products: Product[] = baseProducts.map((p) => ({
+  ...p,
+  image: productImages[p.id],
+}));
