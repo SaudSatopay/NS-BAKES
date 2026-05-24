@@ -1,0 +1,13 @@
+# Netlify configuration for the Next.js App Router.
+# The official @netlify/plugin-nextjs is installed automatically by Netlify
+# when it detects Next.js — no manual install required.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

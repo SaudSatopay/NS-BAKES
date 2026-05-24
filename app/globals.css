@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/*  Stored as "R G B" triples so Tailwind utilities can apply alpha.   */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --bg: 247 241 232; /* warm cream */
+    --surface: 255 252 247; /* paper */
+    --surface-2: 241 231 217; /* toasted cream */
+    --ink: 38 24 17; /* espresso */
+    --muted: 120 96 78; /* mocha */
+    --line: 223 207 187; /* soft border */
+    --gold: 176 132 45;
+    --gold-2: 214 176 96;
+    --blush: 226 182 173; /* soft pink */
+    --choco: 74 44 28; /* chocolate */
+    --cream: 247 241 232;
+
+    --shadow-color: 40 24 16;
+  }
+
+  .dark {
+    --bg: 22 16 12; /* dark espresso */
+    --surface: 32 23 17;
+    --surface-2: 44 32 24;
+    --ink: 244 234 220; /* cream text */
+    --muted: 188 165 143;
+    --line: 62 47 35;
+    --gold: 216 180 104;
+    --gold-2: 238 208 146;
+    --blush: 214 160 150;
+    --choco: 58 35 22;
+    --cream: 244 234 220;
+
+    --shadow-color: 0 0 0;
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis-managed smooth scroll: let JS drive once enabled. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-feature-settings: "ss01", "cv01", "liga", "kern";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgb(var(--gold) / 0.85);
+    color: rgb(var(--bg));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--gold));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--bg));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--gold) / 0.5);
+    border-radius: 99px;
+    border: 3px solid rgb(var(--bg));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--gold) / 0.8);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Component primitives                                               */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase leading-none tracking-eyebrow text-gold;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-7 bg-gold/70;
+  }
+
+  .gold-text {
+    background-image: linear-gradient(
+      100deg,
+      rgb(var(--gold-2)),
+      rgb(var(--gold)) 45%,
+      rgb(var(--gold-2))
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background-color: rgb(var(--surface) / 0.62);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgb(var(--line) / 0.7);
+  }
+
+  /* Layered warm gradient mesh for atmospheric backgrounds */
+  .bg-mesh {
+    background-color: rgb(var(--bg));
+    background-image:
+      radial-gradient(40% 55% at 18% 12%, rgb(var(--gold) / 0.16), transparent 60%),
+      radial-gradient(38% 50% at 85% 8%, rgb(var(--blush) / 0.22), transparent 62%),
+      radial-gradient(50% 60% at 92% 92%, rgb(var(--gold-2) / 0.16), transparent 60%),
+      radial-gradient(60% 70% at 8% 95%, rgb(var(--choco) / 0.12), transparent 60%);
+  }
+
+  .card-surface {
+    background-color: rgb(var(--surface));
+    border: 1px solid rgb(var(--line));
+    border-radius: 1.5rem;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-line;
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 ease-out;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Fade the left/right edges (used by the marquee). */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+  .perspective {
+    perspective: 1000px;
+  }
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
