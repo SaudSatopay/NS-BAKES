@@ -5,15 +5,11 @@ import { Button } from "@/components/ui/Button";
 import {
   ArrowUpRightIcon,
   InstagramIcon,
-  SnapchatIcon,
-  TikTokIcon,
   WhatsAppIcon,
 } from "@/components/ui/icons";
 
 const socialIcon: Record<string, (p: { className?: string }) => JSX.Element> = {
   Instagram: InstagramIcon,
-  TikTok: TikTokIcon,
-  Snapchat: SnapchatIcon,
 };
 
 export function Footer() {

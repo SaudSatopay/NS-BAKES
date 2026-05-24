@@ -10,11 +10,11 @@ export const site = {
     "NS BAKES is a premium home bakery in Thane crafting small-batch cakes, brownies, cupcakes and cookies — baked to order with the finest ingredients and a whole lot of love.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nsbakes.example.com",
 
-  /** International format, digits only, no leading "+". e.g. 917304168620 */
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917304168620",
+  /** International format, digits only, no leading "+". e.g. 917304158620 */
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917304158620",
 
-  email: "hello@nsbakes.com",
-  phoneDisplay: "+91 73041 68620",
+  email: "satopaysaud@gmail.com",
+  phoneDisplay: "+91 73041 58620",
 
   location: {
     area: "Thane West",
@@ -26,9 +26,11 @@ export const site = {
   currency: "₹",
 
   socials: [
-    { name: "Instagram", handle: "@nsbakes", href: "https://instagram.com/" },
-    { name: "TikTok", handle: "@nsbakes", href: "https://tiktok.com/" },
-    { name: "Snapchat", handle: "nsbakes", href: "https://snapchat.com/" },
+    {
+      name: "Instagram",
+      handle: "@nsbakes17",
+      href: "https://www.instagram.com/nsbakes17/",
+    },
   ],
 } as const;
 

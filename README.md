@@ -69,7 +69,7 @@ npm run start
 
 ```bash
 # WhatsApp number that receives orders — international format, digits only, no "+"
-NEXT_PUBLIC_WHATSAPP_NUMBER=917304168620
+NEXT_PUBLIC_WHATSAPP_NUMBER=917304158620
 
 # Public site URL (SEO canonical / sitemap / Open Graph)
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
