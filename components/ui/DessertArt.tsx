@@ -111,6 +111,18 @@ const art: Record<DessertType, React.ReactNode> = {
       <path d="M40 56 l-6 17 M54 51 l-3 19 M68 51 l3 19 M82 56 l6 17" opacity="0.7" />
     </>
   ),
+  bomboloni: (
+    <>
+      <circle cx="60" cy="62" r="35" />
+      <path d="M26 60 q34 12 68 0" opacity="0.45" />
+      <circle cx="60" cy="58" r="7" fill={GOLD} fillOpacity="0.4" stroke="none" />
+      <circle cx="44" cy="46" r="1.8" fill="currentColor" stroke="none" />
+      <circle cx="74" cy="44" r="1.8" fill="currentColor" stroke="none" />
+      <circle cx="84" cy="64" r="1.8" fill="currentColor" stroke="none" />
+      <circle cx="38" cy="68" r="1.8" fill="currentColor" stroke="none" />
+      <circle cx="66" cy="82" r="1.8" fill="currentColor" stroke="none" />
+    </>
+  ),
 };
 
 export function DessertArt({

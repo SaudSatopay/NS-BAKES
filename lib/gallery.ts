@@ -22,10 +22,10 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "g2",
-    title: "Buttercream Bloom",
-    tag: "Cupcakes",
-    art: "cupcake",
-    tone: ["#d8b98a", "#9a6f44"],
+    title: "Nutella Bombolonis",
+    tag: "Bombolonis",
+    art: "bomboloni",
+    tone: ["#7a4a2c", "#341c10"],
     size: "normal",
   },
   {
@@ -46,10 +46,10 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "g5",
-    title: "Macaron Parade",
-    tag: "Macarons",
-    art: "macaron",
-    tone: ["#cf9fa0", "#7f4b56"],
+    title: "Berry Bombolonis",
+    tag: "Bombolonis",
+    art: "bomboloni",
+    tone: ["#9c5566", "#52232f"],
     size: "normal",
   },
   {

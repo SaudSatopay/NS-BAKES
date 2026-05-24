@@ -19,13 +19,24 @@ export function whatsappLink(message: string) {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-/** Build a wa.me link pre-filled with the cart contents. */
-export function buildCartWhatsAppLink(items: OrderLine[], subtotal: number) {
+export type OrderDetails = {
+  name?: string;
+  address?: string;
+  wantedBy?: string;
+  notes?: string;
+};
+
+/** Build a wa.me link pre-filled with the cart contents and customer details. */
+export function buildCartWhatsAppLink(
+  items: OrderLine[],
+  subtotal: number,
+  details: OrderDetails = {},
+) {
   const lines = items
     .map((i) => `- ${i.qty} x ${i.name}  (${formatPrice(i.price * i.qty)})`)
     .join("\n");
 
-  const message = [
+  const parts = [
     `Hello ${site.name}!`,
     "",
     "I'd like to place an order:",
@@ -34,12 +45,14 @@ export function buildCartWhatsAppLink(items: OrderLine[], subtotal: number) {
     "",
     `Subtotal: ${formatPrice(subtotal)}`,
     "",
-    "Name:",
-    "Pickup or delivery:",
-    "Preferred date & time:",
-  ].join("\n");
+    `Name: ${details.name || "-"}`,
+    `Delivery address: ${details.address || "-"}`,
+    `Wanted by: ${details.wantedBy || "-"}`,
+  ];
 
-  return whatsappLink(message);
+  if (details.notes) parts.push(`Notes: ${details.notes}`);
+
+  return whatsappLink(parts.join("\n"));
 }
 
 /** Build a wa.me link from the contact / inquiry form. */

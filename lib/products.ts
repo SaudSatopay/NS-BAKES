@@ -6,14 +6,10 @@ export type DessertType =
   | "macaron"
   | "donut"
   | "tart"
-  | "croissant";
+  | "croissant"
+  | "bomboloni";
 
-export type Category =
-  | "Cakes"
-  | "Brownies"
-  | "Cupcakes"
-  | "Cookies"
-  | "Macarons";
+export type Category = "Cakes" | "Brownies" | "Cookies" | "Bombolonis";
 
 export interface Product {
   id: string;
@@ -26,18 +22,20 @@ export interface Product {
   /** Two CSS colors for the card's gradient tile. */
   tone: [string, string];
   badge?: string;
+  /** Custom items skip the cart and open a WhatsApp enquiry instead. */
+  custom?: boolean;
 }
 
 export const categories: Array<Category | "All"> = [
   "All",
   "Cakes",
   "Brownies",
-  "Cupcakes",
   "Cookies",
-  "Macarons",
+  "Bombolonis",
 ];
 
 export const products: Product[] = [
+  // ---------------------------------------------------------------- Cakes
   {
     id: "belgian-chocolate-cake",
     name: "Belgian Chocolate Cake",
@@ -45,99 +43,152 @@ export const products: Product[] = [
     price: 899,
     unit: "500 g",
     description:
-      "Four layers of velvet sponge soaked in dark Belgian ganache and a whisper of sea salt.",
+      "Layers of velvet sponge soaked in dark Belgian ganache and a whisper of sea salt.",
     art: "cake",
     tone: ["#6f4326", "#2c1a0f"],
     badge: "Bestseller",
   },
   {
-    id: "pistachio-rose-cake",
-    name: "Pistachio & Rose Cake",
-    category: "Cakes",
-    price: 1049,
-    unit: "500 g",
-    description:
-      "Toasted pistachio crumb, rose-water cream and candied petals — quietly elegant.",
-    art: "cake",
-    tone: ["#caa17f", "#7c4f39"],
-    badge: "New",
-  },
-  {
-    id: "biscoff-caramel-cake",
-    name: "Biscoff Caramel Cake",
-    category: "Cakes",
-    price: 949,
-    unit: "500 g",
-    description:
-      "Spiced cookie layers folded with molten caramel and a crackle of Biscoff crunch.",
-    art: "tart",
-    tone: ["#b07b3e", "#5e3a1b"],
-  },
-  {
-    id: "red-velvet-dream",
-    name: "Red Velvet Dream",
+    id: "red-velvet-cake",
+    name: "Red Velvet Cake",
     category: "Cakes",
     price: 849,
     unit: "500 g",
     description:
-      "Cocoa-kissed velvet with a tangy whipped cream-cheese cloud between every layer.",
+      "Cocoa-kissed velvet sponge with a tangy whipped cream-cheese cloud between layers.",
     art: "cake",
     tone: ["#a45645", "#561f1c"],
   },
   {
-    id: "triple-choc-brownie",
-    name: "Triple-Choc Fudge Brownie",
-    category: "Brownies",
-    price: 399,
-    unit: "box of 9",
+    id: "black-forest-cake",
+    name: "Black Forest Cake",
+    category: "Cakes",
+    price: 799,
+    unit: "500 g",
     description:
-      "Impossibly fudgy centre, crackled top, three kinds of chocolate in every square.",
+      "Chocolate sponge, fresh cream and morello cherries — the timeless classic.",
+    art: "cake",
+    tone: ["#5b2f2a", "#2a1410"],
+  },
+  {
+    id: "butterscotch-cake",
+    name: "Butterscotch Cake",
+    category: "Cakes",
+    price: 749,
+    unit: "500 g",
+    description:
+      "Buttery sponge layered with caramel cream and a praline crunch in every bite.",
+    art: "cake",
+    tone: ["#b8863a", "#6e4a1c"],
+  },
+  {
+    id: "pineapple-cake",
+    name: "Pineapple Cake",
+    category: "Cakes",
+    price: 699,
+    unit: "500 g",
+    description:
+      "Light vanilla sponge, airy fresh cream and juicy pineapple — a teatime favourite.",
+    art: "cake",
+    tone: ["#c9a44e", "#7a5a24"],
+  },
+  {
+    id: "choco-truffle-cake",
+    name: "Choco Truffle Cake",
+    category: "Cakes",
+    price: 949,
+    unit: "500 g",
+    description:
+      "Decadent chocolate sponge cloaked in glossy truffle ganache. For the chocoholic.",
+    art: "cake",
+    tone: ["#5e3a23", "#241308"],
+    badge: "New",
+  },
+  {
+    id: "custom-cake",
+    name: "Custom Cake",
+    category: "Cakes",
+    price: 0,
+    description:
+      "Dreaming up something special? Tell us the occasion, flavour and design — we'll craft it just for you.",
+    art: "cake",
+    tone: ["#7c5a2e", "#2e1d0f"],
+    badge: "Made to order",
+    custom: true,
+  },
+
+  // ------------------------------------------------------------- Brownies
+  {
+    id: "classic-fudge-brownie",
+    name: "Classic Fudge Brownie",
+    category: "Brownies",
+    price: 120,
+    unit: "per piece",
+    description: "Impossibly fudgy centre with a signature crackled top.",
     art: "brownie",
-    tone: ["#5b3823", "#241308"],
+    tone: ["#6f4326", "#2c1a0f"],
     badge: "Bestseller",
+  },
+  {
+    id: "walnut-brownie",
+    name: "Walnut Brownie",
+    category: "Brownies",
+    price: 140,
+    unit: "per piece",
+    description: "Our fudge brownie loaded with toasted, buttery walnuts.",
+    art: "brownie",
+    tone: ["#8a5a34", "#3f2613"],
   },
   {
     id: "salted-caramel-brownie",
     name: "Salted Caramel Brownie",
     category: "Brownies",
-    price: 449,
-    unit: "box of 9",
-    description:
-      "Dark chocolate brownie rippled with salted caramel and a flutter of flaky salt.",
+    price: 150,
+    unit: "per piece",
+    description: "Dark chocolate brownie rippled with caramel and flaky salt.",
     art: "brownie",
     tone: ["#9c6b35", "#492a14"],
   },
   {
-    id: "vanilla-bean-cupcakes",
-    name: "Vanilla Bean Cupcakes",
-    category: "Cupcakes",
-    price: 349,
-    unit: "box of 6",
-    description:
-      "Madagascar vanilla sponge crowned with a tall swirl of silky buttercream.",
-    art: "cupcake",
-    tone: ["#d8b98a", "#9a6f44"],
+    id: "nutella-brownie",
+    name: "Nutella Brownie",
+    category: "Brownies",
+    price: 160,
+    unit: "per piece",
+    description: "A molten hazelnut Nutella core hidden inside every square.",
+    art: "brownie",
+    tone: ["#7a4a2c", "#341c10"],
   },
   {
-    id: "nutella-stuffed-cupcakes",
-    name: "Nutella-Stuffed Cupcakes",
-    category: "Cupcakes",
-    price: 429,
-    unit: "box of 6",
-    description:
-      "Chocolate sponge with a hidden hazelnut core and a glossy ganache cap.",
-    art: "cupcake",
-    tone: ["#7a4a2c", "#341c10"],
+    id: "triple-chocolate-brownie",
+    name: "Triple Chocolate Brownie",
+    category: "Brownies",
+    price: 150,
+    unit: "per piece",
+    description: "Dark, milk and white chocolate folded through a fudgy base.",
+    art: "brownie",
+    tone: ["#5e3a23", "#2a160d"],
+  },
+  {
+    id: "biscoff-brownie",
+    name: "Biscoff Brownie",
+    category: "Brownies",
+    price: 160,
+    unit: "per piece",
+    description: "Spiced Biscoff swirl and cookie crumble over rich chocolate.",
+    art: "brownie",
+    tone: ["#b07b3e", "#5e3a1b"],
     badge: "New",
   },
+
+  // -------------------------------------------------------------- Cookies
   {
     id: "brown-butter-choc-chip",
     name: "Brown Butter Choc-Chip",
     category: "Cookies",
     price: 299,
     unit: "box of 6",
-    description:
-      "Nutty brown-butter dough, gooey middles and pools of dark chocolate.",
+    description: "Nutty brown-butter dough, gooey middles and pools of chocolate.",
     art: "cookie",
     tone: ["#b78a4e", "#6f4626"],
     badge: "Bestseller",
@@ -148,31 +199,82 @@ export const products: Product[] = [
     category: "Cookies",
     price: 319,
     unit: "box of 6",
-    description:
-      "Deep cocoa cookie loaded with milk and dark chunks — for the true chocoholic.",
+    description: "Deep cocoa cookie loaded with milk and dark chunks.",
     art: "cookie",
     tone: ["#5e3a23", "#2a160d"],
   },
   {
-    id: "pistachio-cookie",
-    name: "Pistachio Crunch Cookie",
+    id: "red-velvet-cookie",
+    name: "Red Velvet Cookie",
     category: "Cookies",
-    price: 349,
+    price: 329,
     unit: "box of 6",
-    description:
-      "Buttery cookie studded with slivered pistachios and a hint of cardamom.",
+    description: "Soft red velvet cookie studded with white chocolate chips.",
     art: "cookie",
-    tone: ["#bfa06a", "#7a5a32"],
+    tone: ["#a8504a", "#5a221f"],
   },
   {
-    id: "french-macarons",
-    name: "French Macaron Box",
-    category: "Macarons",
-    price: 599,
-    unit: "box of 12",
-    description:
-      "Delicate almond shells with seasonal ganache fillings, finished by hand.",
-    art: "macaron",
-    tone: ["#cf9fa0", "#7f4b56"],
+    id: "oatmeal-raisin-cookie",
+    name: "Oatmeal Raisin Cookie",
+    category: "Cookies",
+    price: 279,
+    unit: "box of 6",
+    description: "Chewy spiced oat cookie with plump, juicy raisins.",
+    art: "cookie",
+    tone: ["#c2a06a", "#7a5a32"],
+  },
+
+  // ----------------------------------------------------------- Bombolonis
+  {
+    id: "nutella-bomboloni",
+    name: "Nutella Bomboloni",
+    category: "Bombolonis",
+    price: 120,
+    unit: "per piece",
+    description: "Pillowy sugar-dusted Italian doughnut filled with molten Nutella.",
+    art: "bomboloni",
+    tone: ["#7a4a2c", "#341c10"],
+    badge: "Bestseller",
+  },
+  {
+    id: "ganache-bomboloni",
+    name: "Chocolate Ganache Bomboloni",
+    category: "Bombolonis",
+    price: 110,
+    unit: "per piece",
+    description: "Soft brioche bun piped generously with silky dark ganache.",
+    art: "bomboloni",
+    tone: ["#4f3220", "#23130b"],
+  },
+  {
+    id: "biscoff-bomboloni",
+    name: "Biscoff Bomboloni",
+    category: "Bombolonis",
+    price: 130,
+    unit: "per piece",
+    description: "Caramelised Biscoff cream filling with a cookie-crumb finish.",
+    art: "bomboloni",
+    tone: ["#b8823f", "#5e3a1b"],
+    badge: "New",
+  },
+  {
+    id: "berry-bomboloni",
+    name: "Mixed Berry Bomboloni",
+    category: "Bombolonis",
+    price: 110,
+    unit: "per piece",
+    description: "Bright mixed-berry compote tucked into a fluffy sugared bun.",
+    art: "bomboloni",
+    tone: ["#9c5566", "#52232f"],
+  },
+  {
+    id: "jam-bomboloni",
+    name: "Classic Jam Bomboloni",
+    category: "Bombolonis",
+    price: 90,
+    unit: "per piece",
+    description: "The old-school favourite — fluffy dough and sweet fruit jam.",
+    art: "bomboloni",
+    tone: ["#b35d54", "#5e2723"],
   },
 ];
