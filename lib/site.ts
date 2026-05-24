@@ -8,7 +8,7 @@ export const site = {
   tagline: "Artisan home bakery",
   description:
     "NS BAKES is a premium home bakery in Thane crafting small-batch cakes, brownies, cupcakes and cookies — baked to order with the finest ingredients and a whole lot of love.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nsbakes.example.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nsbakes.vercel.app",
 
   /** International format, digits only, no leading "+". e.g. 917304158620 */
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917304158620",
