@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { site } from "@/lib/site";
 import { whatsappLink } from "@/lib/utils";
@@ -10,6 +11,17 @@ import { AnimatedWords } from "@/components/ui/AnimatedWords";
 import { DessertArt } from "@/components/ui/DessertArt";
 import { Sparkle } from "@/components/ui/Decorations";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
+
+const PlateArt = () => (
+  <div className="grid h-full w-full place-items-center p-[22%] text-choco dark:text-[#ecca84]">
+    <DessertArt type="cake" />
+  </div>
+);
+
+const HeroCake3D = dynamic(
+  () => import("@/components/ui/HeroCake3D").then((m) => m.HeroCake3D),
+  { ssr: false, loading: () => <PlateArt /> },
+);
 
 const stats: {
   to: number;
@@ -59,6 +71,15 @@ export function Hero() {
   const orderLink = whatsappLink(
     `Hello ${site.name}! I'd like to place an order.`,
   );
+
+  const [use3D, setUse3D] = useState(false);
+  useEffect(() => {
+    const capable =
+      window.matchMedia("(min-width: 768px)").matches &&
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setUse3D(capable);
+  }, []);
 
   return (
     <section
@@ -174,8 +195,8 @@ export function Hero() {
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-surface to-surface-2 shadow-lift ring-1 ring-line" />
             <div className="absolute inset-[6%] rounded-full border border-gold/30" />
-            <div className="absolute inset-0 grid place-items-center p-[22%] text-choco dark:text-[#ecca84]">
-              <DessertArt type="cake" />
+            <div className="absolute inset-0">
+              {use3D ? <HeroCake3D /> : <PlateArt />}
             </div>
           </motion.div>
 
