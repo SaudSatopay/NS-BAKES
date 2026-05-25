@@ -286,18 +286,19 @@ const productImages: Record<string, string> = {
   "choco-truffle-cake": "/images/menu/truffle-cake.jpg",
   "custom-cake": "/images/menu/custom-cake.jpg",
   "classic-fudge-brownie": "/images/menu/brownie-1.jpg",
-  "walnut-brownie": "/images/menu/brownie-2.jpg",
+  "walnut-brownie": "/images/menu/brownie-walnut.jpg",
   "salted-caramel-brownie": "/images/menu/brownie-3.jpg",
-  "nutella-brownie": "/images/menu/brownie-1.jpg",
-  "triple-chocolate-brownie": "/images/menu/brownie-2.jpg",
-  "biscoff-brownie": "/images/menu/brownie-3.jpg",
+  "nutella-brownie": "/images/menu/brownie-2.jpg",
+  "triple-chocolate-brownie": "/images/menu/brownie-triple.jpg",
+  "biscoff-brownie": "/images/menu/brownie-biscoff.jpg",
   "brown-butter-choc-chip": "/images/menu/cookie-1.jpg",
   "double-chocolate-cookie": "/images/menu/cookie-2.jpg",
-  "red-velvet-cookie": "/images/menu/cookie-3.jpg",
-  "nutella-bomboloni": "/images/menu/bomboloni-1.jpg",
-  "ganache-bomboloni": "/images/menu/bomboloni-2.jpg",
-  "biscoff-bomboloni": "/images/menu/bomboloni-3.jpg",
-  "berry-bomboloni": "/images/menu/bomboloni-2.jpg",
+  // red-velvet-cookie intentionally omitted — falls back to the DessertArt
+  // illustration on its red gradient (no convincing red-velvet-cookie stock photo).
+  "nutella-bomboloni": "/images/menu/bomboloni-nutella.jpg",
+  "ganache-bomboloni": "/images/menu/bomboloni-ganache.jpg",
+  "biscoff-bomboloni": "/images/menu/bomboloni-biscoff.jpg",
+  "berry-bomboloni": "/images/menu/bomboloni-berry.jpg",
   "jam-bomboloni": "/images/menu/bomboloni-1.jpg",
 };
 

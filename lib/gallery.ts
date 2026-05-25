@@ -30,7 +30,7 @@ export const galleryItems: GalleryItem[] = [
     art: "bomboloni",
     tone: ["#7a4a2c", "#341c10"],
     size: "normal",
-    image: "/images/menu/bomboloni-1.jpg",
+    image: "/images/menu/bomboloni-nutella.jpg",
   },
   {
     id: "g3",
@@ -57,7 +57,7 @@ export const galleryItems: GalleryItem[] = [
     art: "bomboloni",
     tone: ["#9c5566", "#52232f"],
     size: "normal",
-    image: "/images/menu/bomboloni-2.jpg",
+    image: "/images/menu/bomboloni-berry.jpg",
   },
   {
     id: "g6",
