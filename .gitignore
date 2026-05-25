@@ -34,3 +34,6 @@ yarn-error.log*
 .claude/
 .idea/
 .vscode/
+
+# raw source assets (originals live outside the repo)
+/Bomboloni pics/

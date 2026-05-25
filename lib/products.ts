@@ -299,7 +299,7 @@ const productImages: Record<string, string> = {
   "ganache-bomboloni": "/images/menu/bomboloni-ganache.jpg",
   "biscoff-bomboloni": "/images/menu/bomboloni-biscoff.jpg",
   "berry-bomboloni": "/images/menu/bomboloni-berry.jpg",
-  "jam-bomboloni": "/images/menu/bomboloni-1.jpg",
+  "jam-bomboloni": "/images/menu/bomboloni-jam.jpg",
 };
 
 export const products: Product[] = baseProducts.map((p) => ({
