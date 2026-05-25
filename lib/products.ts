@@ -293,8 +293,7 @@ const productImages: Record<string, string> = {
   "biscoff-brownie": "/images/menu/brownie-biscoff.jpg",
   "brown-butter-choc-chip": "/images/menu/cookie-1.jpg",
   "double-chocolate-cookie": "/images/menu/cookie-2.jpg",
-  // red-velvet-cookie intentionally omitted — falls back to the DessertArt
-  // illustration on its red gradient (no convincing red-velvet-cookie stock photo).
+  "red-velvet-cookie": "/images/menu/cookie-redvelvet.jpg",
   "nutella-bomboloni": "/images/menu/bomboloni-nutella.jpg",
   "ganache-bomboloni": "/images/menu/bomboloni-ganache.jpg",
   "biscoff-bomboloni": "/images/menu/bomboloni-biscoff.jpg",
