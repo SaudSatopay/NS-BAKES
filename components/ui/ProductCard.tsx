@@ -1,26 +1,53 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
-import { cn, formatPrice } from "@/lib/utils";
+import { useCart } from "@/context/CartContext";
+import { useSound } from "@/context/SoundContext";
+import { cn, formatPrice, slugify } from "@/lib/utils";
+import { flyToCart } from "@/lib/flyToCart";
 import { DessertArt } from "./DessertArt";
-import { ArrowUpRightIcon, WhatsAppIcon } from "./icons";
+import { ArrowUpRightIcon, CheckIcon, PlusIcon, WhatsAppIcon } from "./icons";
 
 export const ProductCard = forwardRef<
   HTMLElement,
   { product: Product; onOpen: () => void }
 >(function ProductCard({ product, onOpen }, ref) {
+  const { add } = useCart();
+  const sound = useSound();
+  const [added, setAdded] = useState(false);
+
   const fromPrice = product.options?.[0]?.price ?? product.price;
   const baseLabel = product.options?.[0]?.label;
   const hasRange = (product.options?.length ?? 0) > 1;
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onOpen();
+  const handleQuickAdd = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const opt = product.options?.[0];
+    if (!opt) return;
+    add(
+      {
+        id: `${product.id}-${slugify(opt.label)}`,
+        name: `${product.name} — ${opt.label}`,
+        price: opt.price,
+        category: product.category,
+        art: product.art,
+        image: product.image,
+      },
+      1,
+    );
+    sound.play("add");
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    if (product.image) {
+      flyToCart(product.image, {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      });
     }
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1200);
   };
 
   return (
@@ -33,12 +60,8 @@ export const ProductCard = forwardRef<
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       onClick={onOpen}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-      aria-label={`View ${product.name}`}
       data-cursor
-      className="group flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-line bg-surface shadow-soft transition-shadow duration-300 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="group flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-line bg-surface shadow-soft transition-shadow duration-300 hover:shadow-lift"
     >
       <div
         className="relative aspect-[5/4] overflow-hidden"
@@ -91,6 +114,25 @@ export const ProductCard = forwardRef<
         <span className="absolute right-4 top-4 z-10 text-[0.68rem] uppercase tracking-eyebrow text-white/85 [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
           {product.category}
         </span>
+
+        {!product.custom && product.options ? (
+          <button
+            type="button"
+            onClick={handleQuickAdd}
+            data-cursor
+            aria-label={`Quick add ${product.name} (${baseLabel}) to cart`}
+            className={cn(
+              "absolute bottom-4 right-4 z-20 grid h-11 w-11 place-items-center rounded-full shadow-lift transition-all duration-300 hover:scale-110",
+              added ? "bg-white text-[#23160d]" : "bg-gold text-[#23160d]",
+            )}
+          >
+            {added ? (
+              <CheckIcon className="h-5 w-5" />
+            ) : (
+              <PlusIcon className="h-5 w-5" />
+            )}
+          </button>
+        ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
@@ -117,7 +159,14 @@ export const ProductCard = forwardRef<
           {product.description}
         </p>
 
-        <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 px-5 py-3 text-sm font-semibold transition-colors duration-300 group-hover:border-gold group-hover:text-gold">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpen();
+          }}
+          className="mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 px-5 py-3 text-sm font-semibold transition-colors duration-300 hover:border-gold hover:text-gold"
+        >
           {product.custom ? (
             <>
               <WhatsAppIcon className="h-4 w-4" /> Enquire
@@ -128,7 +177,7 @@ export const ProductCard = forwardRef<
               <ArrowUpRightIcon className="h-4 w-4" />
             </>
           )}
-        </span>
+        </button>
       </div>
     </motion.article>
   );

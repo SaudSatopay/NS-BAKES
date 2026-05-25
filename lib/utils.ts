@@ -7,6 +7,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** URL/id-safe slug, e.g. "1 kg" -> "1-kg". Shared so cart variant ids match. */
+export function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 /** Format a number as an INR price (whole rupees). */
 export function formatPrice(value: number) {
   return `${site.currency}${value.toLocaleString("en-IN")}`;
@@ -24,6 +32,8 @@ export type OrderDetails = {
   address?: string;
   wantedBy?: string;
   notes?: string;
+  isGift?: boolean;
+  giftMessage?: string;
 };
 
 /** Build a wa.me link pre-filled with the cart contents and customer details. */
@@ -51,6 +61,10 @@ export function buildCartWhatsAppLink(
   ];
 
   if (details.notes) parts.push(`Notes: ${details.notes}`);
+  if (details.isGift) {
+    parts.push("Gift order: Yes");
+    if (details.giftMessage) parts.push(`Gift message: ${details.giftMessage}`);
+  }
 
   return whatsappLink(parts.join("\n"));
 }

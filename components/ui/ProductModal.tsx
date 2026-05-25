@@ -7,7 +7,7 @@ import type { Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import { useCart } from "@/context/CartContext";
 import { useSound } from "@/context/SoundContext";
-import { cn, formatPrice, whatsappLink } from "@/lib/utils";
+import { cn, formatPrice, slugify, whatsappLink } from "@/lib/utils";
 import { DessertArt } from "./DessertArt";
 import { Button } from "./Button";
 import { CheckIcon, CloseIcon, MinusIcon, PlusIcon, WhatsAppIcon } from "./icons";
@@ -19,12 +19,6 @@ Flavour:
 Servings / size:
 Design or theme:
 Needed by:`;
-
-const slug = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
 
 export function ProductModal({
   product,
@@ -66,7 +60,7 @@ export function ProductModal({
     if (!product || !option) return;
     add(
       {
-        id: `${product.id}-${slug(option.label)}`,
+        id: `${product.id}-${slugify(option.label)}`,
         name: `${product.name} — ${option.label}`,
         price: option.price,
         category: product.category,

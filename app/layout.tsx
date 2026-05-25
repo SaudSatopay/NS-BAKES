@@ -8,6 +8,9 @@ import { GrainOverlay } from "@/components/ui/GrainOverlay";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { CartDrawer } from "@/components/ui/CartDrawer";
+import { WhatsAppFab } from "@/components/ui/WhatsAppFab";
+import { FlyToCartLayer } from "@/components/ui/FlyToCartLayer";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const fontDisplay = Fraunces({
@@ -125,7 +128,10 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
           <CartDrawer />
+          <FlyToCartLayer />
+          <WhatsAppFab />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

@@ -5,15 +5,21 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { site } from "@/lib/site";
 import { whatsappLink } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { CountUp } from "@/components/ui/CountUp";
 import { AnimatedWords } from "@/components/ui/AnimatedWords";
 import { DessertArt } from "@/components/ui/DessertArt";
 import { Sparkle } from "@/components/ui/Decorations";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
 
-const stats = [
-  { value: "500+", label: "Happy orders" },
-  { value: "100%", label: "Homemade" },
-  { value: "5.0", label: "Avg. rating" },
+const stats: {
+  to: number;
+  suffix?: string;
+  decimals?: number;
+  label: string;
+}[] = [
+  { to: 500, suffix: "+", label: "Happy orders" },
+  { to: 100, suffix: "%", label: "Homemade" },
+  { to: 5, decimals: 1, label: "Avg. rating" },
 ];
 
 function SpinningBadge() {
@@ -145,7 +151,7 @@ export function Hero() {
             {stats.map((s) => (
               <div key={s.label}>
                 <dt className="font-display text-3xl font-semibold">
-                  {s.value}
+                  <CountUp to={s.to} suffix={s.suffix} decimals={s.decimals} />
                 </dt>
                 <dd className="mt-1 text-[0.7rem] uppercase tracking-eyebrow text-muted">
                   {s.label}

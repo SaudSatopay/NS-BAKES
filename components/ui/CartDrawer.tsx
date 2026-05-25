@@ -27,7 +27,14 @@ const labelClass =
 
 type Step = "cart" | "details";
 
-const emptyForm = { name: "", address: "", wantedBy: "", notes: "" };
+const emptyForm = {
+  name: "",
+  address: "",
+  wantedBy: "",
+  notes: "",
+  isGift: false,
+  giftMessage: "",
+};
 
 function formatWantedBy(value: string) {
   if (!value) return "";
@@ -91,6 +98,8 @@ export function CartDrawer() {
         address: form.address.trim(),
         wantedBy: formatWantedBy(form.wantedBy),
         notes: form.notes.trim(),
+        isGift: form.isGift,
+        giftMessage: form.isGift ? form.giftMessage.trim() : undefined,
       },
     );
     window.open(link, "_blank", "noopener,noreferrer");
@@ -353,6 +362,32 @@ export function CartDrawer() {
                               placeholder="Allergies, message on the cake, extra enquiry…"
                               className={inputClass}
                             />
+                          </div>
+                          <div>
+                            <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink">
+                              <input
+                                type="checkbox"
+                                checked={form.isGift}
+                                onChange={(e) =>
+                                  setForm((f) => ({
+                                    ...f,
+                                    isGift: e.target.checked,
+                                  }))
+                                }
+                                className="h-4 w-4 accent-gold"
+                              />
+                              This is a gift
+                            </label>
+                            {form.isGift ? (
+                              <textarea
+                                name="giftMessage"
+                                rows={2}
+                                value={form.giftMessage}
+                                onChange={handleChange}
+                                placeholder="Gift message for the card…"
+                                className={`${inputClass} mt-2`}
+                              />
+                            ) : null}
                           </div>
                         </div>
                       </div>

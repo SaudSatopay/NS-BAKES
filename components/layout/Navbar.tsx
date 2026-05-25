@@ -44,6 +44,7 @@ export function Navbar() {
         sound.play("open");
       }}
       data-cursor
+      data-cart-icon
       aria-label={`Open cart (${count} item${count === 1 ? "" : "s"})`}
       className={cn(
         "relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface/60 text-ink backdrop-blur transition-colors hover:border-gold hover:text-gold",
