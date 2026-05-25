@@ -2,14 +2,21 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { categories, products, type Category } from "@/lib/products";
+import {
+  categories,
+  products,
+  type Category,
+  type Product,
+} from "@/lib/products";
 import { useSound } from "@/context/SoundContext";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProductCard } from "@/components/ui/ProductCard";
+import { ProductModal } from "@/components/ui/ProductModal";
 
 export function Products() {
   const [active, setActive] = useState<Category | "All">("All");
+  const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const sound = useSound();
 
   const filtered =
@@ -27,7 +34,7 @@ export function Products() {
               Bakes worth <span className="gold-text">savouring</span>.
             </>
           }
-          description="From celebration cakes to midnight cookie cravings — each one made fresh to order, never from a shelf."
+          description="From celebration cakes to midnight cookie cravings — each one made fresh to order, never from a shelf. Tap any item to choose your size."
         />
 
         <div className="mt-12 flex flex-wrap justify-center gap-2">
@@ -66,11 +73,23 @@ export function Products() {
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onOpen={() => {
+                  setActiveProduct(product);
+                  sound.play("open");
+                }}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
       </div>
+
+      <ProductModal
+        product={activeProduct}
+        onClose={() => setActiveProduct(null)}
+      />
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { DessertType } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
@@ -180,11 +181,23 @@ export function CartDrawer() {
                             key={item.id}
                             className="flex gap-4 rounded-2xl border border-line bg-surface p-3"
                           >
-                            <div className="grid h-16 w-16 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-choco to-[#2a160d] p-2.5 text-[#f4e6cf]">
-                              {item.art ? (
-                                <DessertArt type={item.art as DessertType} />
+                            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-choco to-[#2a160d] text-[#f4e6cf]">
+                              {item.image ? (
+                                <Image
+                                  src={item.image}
+                                  alt=""
+                                  fill
+                                  sizes="64px"
+                                  className="object-cover"
+                                />
                               ) : (
-                                <BagIcon />
+                                <div className="grid h-full w-full place-items-center p-2.5">
+                                  {item.art ? (
+                                    <DessertArt type={item.art as DessertType} />
+                                  ) : (
+                                    <BagIcon />
+                                  )}
+                                </div>
                               )}
                             </div>
                             <div className="flex flex-1 flex-col">
