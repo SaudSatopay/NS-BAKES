@@ -37,3 +37,4 @@ yarn-error.log*
 
 # raw source assets (originals live outside the repo)
 /Bomboloni pics/
+/cake-slice.original.glb

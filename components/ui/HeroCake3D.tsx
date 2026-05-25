@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   ContactShadows,
@@ -38,11 +38,17 @@ function CakeModel({ targetSize = 2.7 }: { targetSize?: number }) {
 useGLTF.preload(MODEL_URL);
 
 export function HeroCake3D() {
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   return (
     <Canvas
-      dpr={[1, 1.6]}
+      dpr={isTouch ? [1, 1.3] : [1, 1.6]}
       camera={{ position: [0, 0.6, 4.8], fov: 38 }}
       gl={{ alpha: true, antialias: true }}
+      style={{ touchAction: "pan-y" }}
     >
       <ambientLight intensity={0.65} />
       <directionalLight position={[3, 5, 4]} intensity={1.3} color="#fff3df" />
@@ -90,6 +96,7 @@ export function HeroCake3D() {
         target={[0, 0, 0]}
         enablePan={false}
         enableZoom={false}
+        enableRotate={!isTouch}
         autoRotate
         autoRotateSpeed={1.0}
         minPolarAngle={Math.PI / 3.2}

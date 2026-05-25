@@ -74,11 +74,8 @@ export function Hero() {
 
   const [use3D, setUse3D] = useState(false);
   useEffect(() => {
-    const capable =
-      window.matchMedia("(min-width: 768px)").matches &&
-      window.matchMedia("(pointer: fine)").matches &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setUse3D(capable);
+    // Show the 3D cake on all devices; only honour reduced-motion.
+    setUse3D(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
   return (
